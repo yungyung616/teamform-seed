@@ -76,7 +76,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 		Midfield :"",
 		LeftBack : "",
 		RightBack :"",
-		Goalkeeper :""
+		GoalKeeper :""
 	});
 
 	

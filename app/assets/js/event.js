@@ -4,7 +4,7 @@
 
 
 angular.module('teamform-event-app', ['firebase'])
-.controller('EventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('EventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray,$filter) {
 	
 	initalizeFirebase();
 	$scope.input = {teamname:''};
@@ -15,6 +15,7 @@ angular.module('teamform-event-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 	$scope.eventinfo = $firebaseObject(ref);
 
+
 	$scope.createteam = function() {
 		
 		// Finally, go back to the front-end
@@ -24,10 +25,34 @@ angular.module('teamform-event-app', ['firebase'])
 
 	    var eventRef, refPath;
 
-    teamPath = "/event/" + eventName +"/team" ;
+    /*teamPath = "/event/" + eventName +"/team" ;
     teamRef = firebase.database().ref(teamPath);
     $scope.teams = [];
-    $scope.teams = $firebaseArray(teamRef);
+    $scope.teams = $firebaseArray(teamRef);*/
+
+		var user = firebase.auth().currentUser;
+		var userPath;
+		var userref;
+		var position;
+
+		firebase.auth().onAuthStateChanged(function(user) {
+  		if (user) {
+   		userPath = "/user/" + user.uid;
+		userref = firebase.database().ref(userPath);
+		userref.once('value').then(function(snapshot) {
+  		position = snapshot.val().position;
+		 console.log(position);
+		teamPath = "/event/" + eventName +"/team" ;
+    	teamRef = firebase.database().ref(teamPath);
+		$scope.teams = [];		
+    	$scope.teams = $firebaseArray(teamRef);
+		});
+  			} else {
+   		 // No user is signed in.
+ 			 }
+		});
+
+
 
 
     $scope.viewteam = function(teamname) {
@@ -36,15 +61,4 @@ angular.module('teamform-event-app', ['firebase'])
 
     }
 
-
-
-
-
-
-
-
-
-
-
- 
 }]);
