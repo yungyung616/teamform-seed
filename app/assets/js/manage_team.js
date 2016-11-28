@@ -1,5 +1,3 @@
-
-
 angular.module('teamform-manage_team-app', ['firebase'])
 .controller('ManageTeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
@@ -11,7 +9,6 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
         var userPath = "/user/" + user.uid;
         var userref = firebase.database().ref(userPath);
-
 
         userref.on("value", function(snapshot) {
   				console.log(snapshot.val());
@@ -27,7 +24,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 	
 	$scope.teaminfo = {TeamLeader:"", Description:"", Forward:"", Midfield:"", LeftBack:"", RightBack:"", Goalkeeper:""};
-	$scope.input = {forward:"", midfield:"", leftBack:"", rightBack:"", goalkeeper:""};
+	$scope.input = {teamLeader: teamleader, forward:"", midfield:"", leftBack:"", rightBack:"", goalkeeper:""};
 
 	$scope.teamtaginfo = {Pass_and_move:"", Give_and_go:"", The_long_through_ball:"", Triangular_movement:"", Swapping_of_the_wing_man:"", Strong_side_overloads:"", The_zone_defence:"", Depth_considerations:"", The_man_to_man_defence:""};
 	$scope.teamtaginput = {pass_and_move:0, give_and_go:0, the_long_through_ball:0, triangular_movement:0, swapping_of_the_wing_man:0, strong_side_overloads:0, the_zone_defence:0, depth_considerations:0, the_man_to_man_defence:0};
@@ -56,7 +53,6 @@ angular.module('teamform-manage_team-app', ['firebase'])
   			console.log("The read failed: " + errorObject.code);
 	});
 
-
 	var ref, refPath;
 	$scope.EventName = eventName;
 	$scope.TeamName = teamName;
@@ -68,6 +64,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 	ref.set({
 		TeamName: teamName,
+		TeamLeader: "",
 		Description:"",
 		Forward:"",
 		Midfield:"",
@@ -81,6 +78,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			// Fill in some initial values when the DB entry doesn't exist			
 			// Enable the UI when the data is successfully loaded and synchornized
 			//$('#manage_team_page_controller').show(); 
+			$scope.teaminfo.TeamLeader = $scope.input.teamLeader;
 			$scope.teaminfo.Description = $scope.input.description;
 			$scope.teaminfo.Forward = $scope.input.forward;
 			$scope.teaminfo.Midfield = $scope.input.midfield;
@@ -113,6 +111,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 	$scope.teamtaginfo.$loaded()
 		.then( function(data) {
+			/*
 			$scope.teamtaginfo.Pass_and_move = $scope.teamtaginput.pass_and_move;
 			$scope.teamtaginfo.Give_and_go = $scope.teamtaginput.give_and_go;
 			$scope.teamtaginfo.The_long_through_ball = $scope.teamtaginput.the_long_through_ball;
@@ -122,6 +121,16 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$scope.teamtaginfo.The_zone_defence = $scope.teamtaginput.the_zone_defence;
 			$scope.teamtaginfo.Depth_considerations = $scope.teamtaginput.depth_considerations;
 			$scope.teamtaginfo.The_man_to_man_defence = $scope.teamtaginput.the_man_to_man_defence;
+			*/
+			$scope.teamtaginfo.Pass_and_move = 0;
+			$scope.teamtaginfo.Give_and_go = 0;
+			$scope.teamtaginfo.The_long_through_ball = 0;
+			$scope.teamtaginfo.Triangular_movement = 0;
+			$scope.teamtaginfo.Swapping_of_the_wing_man = 0;
+			$scope.teamtaginfo.Strong_side_overloads = 0;
+			$scope.teamtaginfo.The_zone_defence = 0;
+			$scope.teamtaginfo.Depth_considerations = 0;
+			$scope.teamtaginfo.The_man_to_man_defence = 0;
 		})
 		.catch(function(error) {
 
