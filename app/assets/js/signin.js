@@ -16,7 +16,7 @@ $scope.SignIn = function(e) {
             console.log('Authentication successful');
             $window.alert("You Logined");
 
-            window.location.href= "index.html";
+            window.location.href= "index_login.html";
 
         }, function(error) {
             //Failure callback
