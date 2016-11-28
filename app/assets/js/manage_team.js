@@ -25,10 +25,12 @@ angular.module('teamform-manage_team-app', ['firebase'])
     else {}
     });
 
-
 	
 	$scope.teaminfo = {TeamLeader:"", Description:"", Forward:"", Midfield:"", LeftBack:"", RightBack:"", Goalkeeper:""};
 	$scope.input = {forward:"", midfield:"", leftBack:"", rightBack:"", goalkeeper:""};
+
+	$scope.teamtaginfo = {Pass_and_move:"", Give_and_go:"", The_long_through_ball:"", Triangular_movement:"", Swapping_of_the_wing_man:"", Strong_side_overloads:"", The_zone_defence:"", Depth_considerations:"", The_man_to_man_defence:""};
+	$scope.teamtaginput = {pass_and_move:0, give_and_go:0, the_long_through_ball:0, triangular_movement:0, swapping_of_the_wing_man:0, strong_side_overloads:0, the_zone_defence:0, depth_considerations:0, the_man_to_man_defence:0};
 
 	var eventName, teamName;
 	eventName = getURLParameter("q");
@@ -45,18 +47,14 @@ angular.module('teamform-manage_team-app', ['firebase'])
 		current_team = current_team +1;
 		console.log(current_team);
 		eventref.update(
-		{
-			'No_of_Team' : current_team
-		}
-					);
+			{
+				'No_of_Team' : current_team
+			}
+		);
 
 	}, function (errorObject) {
   			console.log("The read failed: " + errorObject.code);
 	});
-
-
-
-
 
 
 	var ref, refPath;
@@ -70,25 +68,13 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 	ref.set({
 		TeamName: teamName,
-		//TeamLeader : teamleader,
-		Description : "",
-		Forward : "",
-		Midfield :"",
-		LeftBack : "",
-		RightBack :"",
-		Goalkeeper :""
+		Description:"",
+		Forward:"",
+		Midfield:"",
+		LeftBack:"",
+		RightBack:"",
+		Goalkeeper:""
 	});
-
-	
-
-
-
-
-
-
-
-
-
 
 	$scope.teaminfo.$loaded()
 		.then( function(data) {
@@ -101,21 +87,54 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$scope.teaminfo.LeftBack = $scope.input.leftBack;
 			$scope.teaminfo.RightBack = $scope.input.rightBack;
 			$scope.teaminfo.Goalkeeper = $scope.input.goalkeeper;
-					}) 
+		}) 
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);
 		});
+	
+	//Get the  team tag info
+	var tagRef, tagRefPath;
+	tagRefPath = "/event/" + eventName + "/team/" + teamName + "/tag";
+	tagRef = firebase.database().ref(tagRefPath);
+	$scope.teamtaginfo = $firebaseObject(tagRef);
+
+	tagRef.set({
+		Pass_and_move:"",
+		Give_and_go:"",
+		The_long_through_ball:"",
+		Triangular_movement:"",
+		Swapping_of_the_wing_man:"",
+		Strong_side_overloads:"",
+		The_zone_defence:"",
+		Depth_considerations:"",
+		The_man_to_man_defence:""
+	})
+
+	$scope.teamtaginfo.$loaded()
+		.then( function(data) {
+			$scope.teamtaginfo.Pass_and_move = $scope.teamtaginput.pass_and_move;
+			$scope.teamtaginfo.Give_and_go = $scope.teamtaginput.give_and_go;
+			$scope.teamtaginfo.The_long_through_ball = $scope.teamtaginput.the_long_through_ball;
+			$scope.teamtaginfo.Triangular_movement = $scope.teamtaginput.triangular_movement;
+			$scope.teamtaginfo.Swapping_of_the_wing_man = $scope.teamtaginput.swapping_of_the_wing_man;
+			$scope.teamtaginfo.Strong_side_overloads = $scope.teamtaginput.strong_side_overloads;
+			$scope.teamtaginfo.The_zone_defence = $scope.teamtaginput.the_zone_defence;
+			$scope.teamtaginfo.Depth_considerations = $scope.teamtaginput.depth_considerations;
+			$scope.teamtaginfo.The_man_to_man_defence = $scope.teamtaginput.the_man_to_man_defence;
+		})
+		.catch(function(error) {
+
+		});
 
 	$scope.saveFunc = function() {
 		$scope.teaminfo.$save();
+		$scope.teamtaginfo.$save();
 		// Finally, go back to the front-end
 		window.location.href= "team.html?q=" + eventName +"&tn=" + teamName;
-
-
-		
 	}
-	
+
+
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
 		
@@ -127,6 +146,7 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$scope.param.teamMembers.push(r);
 			
 			$scope.saveFunc();
+			$scope.saveFuncTeamTag();
 		}
 	}
 	
@@ -137,15 +157,10 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$scope.param.teamMembers.splice(index, 1); // remove that item
 			
 			$scope.saveFunc();
+			$scope.saveFuncTeamTag();
 		}
 		
 	}
-
-
-
-
-
-
 
 	}
 ]);
