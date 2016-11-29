@@ -46,6 +46,7 @@ angular.module('teamform-event-app', ['firebase'])
     	teamRef = firebase.database().ref(teamPath);
 		$scope.teams = [];		
     	$scope.teams = $firebaseArray(teamRef);
+		
 		});
   			} else {
    		 // No user is signed in.

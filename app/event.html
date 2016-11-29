@@ -116,7 +116,7 @@
 			<td> RightBack </td>
 			<td>	</td></tr>
 
-			<tr ng-repeat="t in teams">
+			<tr ng-repeat="t in teams | orderBy : 'NumMembers'">
 			<td>{{t.TeamName}} </td>
 			<td>{{t.TeamLeader}} </td>
 			<td>{{t.NumMembers}}</td>
