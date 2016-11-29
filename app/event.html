@@ -107,12 +107,24 @@
 
 		<table align="center" border="1">
 			<tr>
-			<td> Team Name </td><td> Leader </td><td> Number of Teammate </td><td></td></tr>
+			<td> Team Name </td>
+			<td> Leader </td>
+			<td> No.Members </td>
+			<td> GoalKeeper </td>
+			<td> LeftBack </td>
+			<td> Midfield </td>
+			<td> RightBack </td>
+			<td>	</td></tr>
 
-			<tr ng-repeat="t in teams">
+			<tr ng-repeat="t in teams | orderBy : 'NumMembers'">
 			<td>{{t.TeamName}} </td>
 			<td>{{t.TeamLeader}} </td>
-			<td>{{t.NumOfMembers}}</td>
+			<td>{{t.NumMembers}}</td>
+			<td>{{t.GoalKeeper}}</td>
+			<td>{{t.LeftBack}}</td>
+			<td>{{t.Midfield}}</td>
+			<td>{{t.RightBack}}</td>
+
 			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewteam(t.TeamName);">More Info</button></td>
 			</tr>
 

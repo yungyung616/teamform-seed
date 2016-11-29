@@ -22,24 +22,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.jointeam = function()
 	{
-		/*
-		 firebase.auth().onAuthStateChanged(function(user) {
-		 	console.log(user);
-    	if (user) {
-    		console.log(user);
-        	userPath = "/user/" + user.uid;
-        	userref = firebase.database().ref(userPath);
 
-        	var eventPath ="/event/" + eventName +"/members/"+ userid;
-        	var eventref = firebase.database().ref(eventPath);
-
-        	eventref.set({ joined : true })	 
-    	} else {
-   
-    // No user is signed in.
-    }
-    });
-*/
 	    var user = firebase.auth().currentUser;
 	    console.log(user);
 
@@ -49,6 +32,25 @@ angular.module('teamform-team-app', ['firebase'])
 	        var name;
 	        var position;
 	        var isPositionEmpty = true;
+			var teamPath ="/event/" + eventName +"/team/" + teamName;
+			var teamref = firebase.database().ref(teamPath);
+			
+			var current_team;
+
+	teamref.once("value",function(snapshot)
+	{
+		console.log(snapshot.val());
+		current_team = snapshot.val().NumMembers;
+		current_team = current_team +1;
+		console.log(current_team);
+		teamref.update(
+			{
+				'NumMembers' : current_team
+			}
+		);
+	})
+		
+			
 
 	        userref.once("value", function(data) {
 	        	console.log(data.val());
@@ -178,13 +180,6 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.members = [];
 	$scope.members = $firebaseArray(firebase.database().ref(refPath));
 
-
-
-
-
-
-
-
 	refPath =  eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
 
@@ -196,22 +191,6 @@ angular.module('teamform-team-app', ['firebase'])
 			
 		} 
 	});
-	
-	
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
 
 	$scope.input = {
 			title: "",
@@ -221,23 +200,149 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 
 	// sync with firebaseArray
-		var commentref = firebase.database().ref("comment");
-		$scope.comment = $firebaseArray(commentref);
+	var commentref = firebase.database().ref("/event/"+eventName+"/team/"+teamName+"/comment");
+	$scope.comment = $firebaseArray(commentref);
 
-		$scope.addComment = function() {
-			
-			// update the date
-			if ( /*$scope.input.title != "" && */$scope.input.comment != "" ) {
-				$scope.input.date = new Date().toString();
-				$scope.input.likes = 0;
-				// add a comment
-				$scope.comment.$add($scope.input);
-			}
+	//Get the data from team tag
+	var teamtagPath = "/event/"+eventName+"/team/"+teamName+"/tag";
+	var teamtagRef = firebase.database().ref(teamtagPath);
+	$scope.teamtag = $firebaseObject(teamtagRef);
+
+	$scope.addComment = function() {
+		//Do the team tag function!!!
+		var current_number;
+		if($scope.input.comment.indexOf('Pass')>= 0||$scope.input.comment.indexOf('pass')>=0||$scope.input.comment.indexOf('Move')>=0||$scope.input.comment.indexOf('move')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Pass_and_move;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Pass_and_move' : current_number
+				});
+
+			});
 		}
-	
-	
-	
-	
+		if($scope.input.comment.indexOf('Give')>= 0||$scope.input.comment.indexOf('give')>=0||$scope.input.comment.indexOf('Go')>=0||$scope.input.comment.indexOf('go')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Give_and_go;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Give_and_go' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Long')>= 0||$scope.input.comment.indexOf('long')>=0||$scope.input.comment.indexOf('Through')>=0||$scope.input.comment.indexOf('through')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().The_long_through_ball;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'The_long_through_ball' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Triangular')>= 0||$scope.input.comment.indexOf('triangular')>=0||$scope.input.comment.indexOf('Movement')>=0||$scope.input.comment.indexOf('movement')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Triangular_movement;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Triangular_movement' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Swap')>= 0||$scope.input.comment.indexOf('swap')>=0||$scope.input.comment.indexOf('Wing')>=0||$scope.input.comment.indexOf('wing')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Swapping_of_the_wing_man;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Swapping_of_the_wing_man' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Side')>= 0||$scope.input.comment.indexOf('side')>=0||$scope.input.comment.indexOf('Overload')>=0||$scope.input.comment.indexOf('overload')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Strong_side_overloads;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Strong_side_overloads' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Zone')>= 0||$scope.input.comment.indexOf('zone')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().The_zone_defence;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'The_zone_defence' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Depth')>= 0||$scope.input.comment.indexOf('depth')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().Depth_considerations;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'Depth_considerations' : current_number
+				});
+
+			});
+		}
+		if($scope.input.comment.indexOf('Man')>= 0||$scope.input.comment.indexOf('man')>=0){
+			teamtagRef.once("value",function(snapshot)
+			{
+				console.log(snapshot.val());
+				current_number = snapshot.val().The_man_to_man_defence;
+				current_number = current_number+1;
+				console.log(current_number);
+				teamtagRef.update({
+						'The_man_to_man_defence' : current_number
+				});
+
+			});
+		}
+
+
+
+		// update the date
+		if ( /*$scope.input.title != "" && */$scope.input.comment != "" ) {
+			$scope.input.date = new Date().toString();
+			$scope.input.likes = 0;
+			// add a comment
+			$scope.comment.$add($scope.input);
+		}
+	}
 	
 		
 }]);
+function functionName()
+{
+    $("#output").val("");
+};
