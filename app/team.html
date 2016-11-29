@@ -125,13 +125,42 @@
 												<input class="form-control" type="text" name="title" ng-model="input.title" placeholder="Thread title" required>
 											</div>
 											-->
+											<table align="center" border="2px">
+												<tr> 
+													<th>Pass and move</th>
+													<td>{{teamtag.Pass_and_move}}</td>
+													<th>Give and go</th>
+													<td>{{teamtag.Give_and_go}}</td>
+													<th>The long through ball</th>
+													<td>{{teamtag.The_long_through_ball}}</td>
+												</tr>
+												<tr>
+													<th>Triangular movement</th>
+													<td>{{teamtag.Triangular_movement}}</td>
+													<th>Swapping of the wing man</th>
+													<td>{{teamtag.Swapping_of_the_wing_man}}</td>
+													<th>Strong side overloads</th>
+													<td>{{teamtag.Strong_side_overloads}}</td>
+												</tr>
+												<tr>
+													<th>The zone defence</th>
+													<td>{{teamtag.The_zone_defence}}</td>
+													<th>Depth considerations</th>
+													<td>{{teamtag.Depth_considerations}}</td>
+													<th>The man-to-man defence</th>
+													<td>{{teamtag.The_man_to_man_defence}}</td>
+												</tr>
+											</table>
+											<br/>
+
 											<div class="form-group">
 												<label>Comment: <span class="required" ng-show="form.comment.$error.required" >*required</span></label>
 												<textarea class="form-control" id='output' name="comment" ng-model="input.comment" placeholder="Enter your comment ..." required></textarea>
 												<br>
 												<input class="btn btn-primary" type="button" value="Send"  ng-click="addComment()"  onclick="javascript: functionName()" >
 					
-											</div>											</form>
+											</div>											
+										</form>
 									</div>
 											
 									<h3>All comments:</h3>
