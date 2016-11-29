@@ -84,11 +84,13 @@ angular.module('teamform-member-app', ['firebase'])
 
     $scope.addPosition = function()
     {
+		var user = firebase.auth().currentUser;
+	    console.log(user);
       var userPath ="/user/" + userID;
       var userRef = firebase.database().ref(userPath);
 
       userRef.update({
-        position : $scope.position
+        'position' : position
     })
     }
  
