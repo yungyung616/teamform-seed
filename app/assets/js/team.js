@@ -49,6 +49,25 @@ angular.module('teamform-team-app', ['firebase'])
 	        var name;
 	        var position;
 	        var isPositionEmpty = true;
+			var teamPath ="/event/" + eventName +"/team/" + teamName;
+			var teamref = firebase.database().ref(teamPath);
+			
+			var current_team;
+
+	teamref.once("value",function(snapshot)
+	{
+		console.log(snapshot.val());
+		current_team = snapshot.val().NumMembers;
+		current_team = current_team +1;
+		console.log(current_team);
+		teamref.update(
+			{
+				'NumMembers' : current_team
+			}
+		);
+	})
+		
+			
 
 	        userref.once("value", function(data) {
 	        	console.log(data.val());

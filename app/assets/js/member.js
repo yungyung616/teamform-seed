@@ -62,12 +62,23 @@ angular.module('teamform-member-app', ['firebase'])
   $scope.userID = "";
   $scope.userName = ""; 
   $scope.teams = {};
+  $scope.param = {};
   
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var userPath = "/user/" + user.uid;
         var userref = firebase.database().ref(userPath);
+		$scope.userID = user.uid;
         $scope.userObj = $firebaseObject(userref);
+		
+		 userref.on("value", function(snapshot) {
+  				console.log(snapshot.val());
+  				teamleader = snapshot.val().name;
+  				console.log(teamleader);
+		}, function (errorObject) {
+  			console.log("The read failed: " + errorObject.code);
+		});
+		
 		$(document).ready(function(){
 		$("#hide").click(function(){
 				$("p").hide();
@@ -84,13 +95,57 @@ angular.module('teamform-member-app', ['firebase'])
 
     $scope.addPosition = function()
     {
-      var userPath ="/user/" + userID;
+      var userPath ="/user/" + $scope.userID;
       var userRef = firebase.database().ref(userPath);
 
       userRef.update({
         position : $scope.position
     })
     }
+	
+	/*$scope.addPosition = function()
+    {
+		var user = firebase.auth().currentUser;
+      var refPath ="/user/" + ;
+      var userRef = firebase.database().ref(userPath);
+		
+		//var userRef = firebase.database().ref(userPath);
+
+userRef.update({
+  position : $scope.position
+}).then(function() {
+  // Update successful.
+}, function(error) {
+  // An error happened.
+});
+    }
+	
+	var name;
+	
+	if eventName.team.member.userName="Obj.name"
+	
+	var reffPath, ref, eventName;
+
+	eventName = getURLParameter("q");
+	reffPath = "/event/" + eventName + "/param";	
+	ref = firebase.database().ref(reffPath);
+		$scope.param = $firebaseObject(ref);
+
+	$scope.param.$loaded()
+		.then( function(data) {
+			// Fill in some initial values when the DB entry doesn't exist			
+			
+			// Enable the UI when the data is successfully loaded and synchornized
+			$('#member_controller').show(); 
+
+			var user = firebase.auth().currentUser;
+			
+			$scope.param.EventName = eventName;		
+		}) 
+		.catch(function(error) {
+			// Database connection error handling...
+			//console.error("Error:", error);
+		}); */
  
   $scope.loadFunc = function() {
     var userID = $scope.userID;

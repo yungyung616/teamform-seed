@@ -70,7 +70,8 @@ angular.module('teamform-manage_team-app', ['firebase'])
 		Midfield:"",
 		LeftBack:"",
 		RightBack:"",
-		GoalKeeper:""
+		GoalKeeper:"",
+		NumMembers: 0
 
 	});
 
