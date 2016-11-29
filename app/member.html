@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = "teamform-member-app" ng-controller="MemberCtrl">
+<html ng-app = "teamform-member-app" id="member_controller" ng-controller="MemberCtrl">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -57,9 +57,9 @@
 			</div>
 			<div class="navbar-collapse collapse" >
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">HOME</a></li>
-					<li><a href="#event">EVENTS</a></li>
-					<li><a href="#about">ABOUT US</a></li>
+					<li class="active"><a href="index.html">HOME</a></li>
+					<li><a href="index.html#event">EVENTS</a></li>
+					<li><a href="index.html#about">ABOUT US</a></li>
 					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
 					<li><a href="member.html">MEMBER</a></li>
 
@@ -90,11 +90,7 @@
 					<img src="assets/images/profile-icon.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" >
 						
 					<h4><b>Name: </b>{{userObj.name}}</h4>
-					
-					<p style="display:none"><br><input type="text" placeholder="Enter your name"></p>
 					<h4><b>Email: </b>{{userObj.email}}</h4>
-					<p style="display:none"><br><input type="text" placeholder="Enter your email"></p>
-
 					<h4><b>Your Position: </b>{{userObj.position}}</h4>
 					
 					<p style="display:none">
@@ -103,7 +99,7 @@
 						<option value="Midfield">Midfield</option>
 						<option value="LeftBack">LeftBack</option>
 						<option value="RightBack">RightBack</option>
-						<option value="Goalkeeper">Goalkeeper</option>
+						<option value="GoalKeeper">GoalKeeper</option>
 					</select>
 					<input id="hide" class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
 					</p>
@@ -117,7 +113,7 @@
 					<div class="widget">
 						<h4>Joined Event</h4>
 						<ul class="list-unstyled list-spaces">
-							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
+							<li><a href="">{{param.EventName}}</a><br><span class="small text-muted">{{TeamName}}</span></li>
 							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
 						</ul>
 					</div>
@@ -136,19 +132,19 @@
 			<div class="container">
 				<div class="row">
 					
-					<div class="col-md-3 widget">
+					<div class="col-md-6 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							+234 23 9873237<br>
+							Light of Wisdom<br>
 								<a href="mailto:#">some.email@somewhere.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+								"phone"
 								
 						</div>
 					</div>
 
-					<div class="col-md-3 widget">
-						<h3 class="widget-title">Follow me</h3>
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Follow us</h3>
 						<div class="widget-body">
 							<div class="follow-me-icons clearfix">
 								<a href=""><i class="fa fa-twitter fa-2"></i></a>
@@ -159,45 +155,13 @@
 						</div>
 					</div>
 
-					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
-						<div class="widget-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?
-							Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.
-						</div>
-					</div>
+				
 
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
 
-		<div class="footer2">
-			<div class="container">
-				<div class="row">
-					
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<div class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Sign up</a></b>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<div class="text-right">
-								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
-							</div>
-						</div>
-					</div>
-
-				</div> <!-- /row of widgets -->
-			</div>
-		</div>
+	
 	</footer>	
 		
 
