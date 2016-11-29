@@ -29,7 +29,7 @@ $scope.SignUp = function() {
             //Success callback
             console.log('Authentication successful');
             $window.alert("You Login as " + username);
-            window.location.href= "index.html";
+            window.location.href= "index_login.html";
             }, function(error) {
                 //Failure callback
                 console.log('Authentication failure');
