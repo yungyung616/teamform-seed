@@ -22,24 +22,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.jointeam = function()
 	{
-		/*
-		 firebase.auth().onAuthStateChanged(function(user) {
-		 	console.log(user);
-    	if (user) {
-    		console.log(user);
-        	userPath = "/user/" + user.uid;
-        	userref = firebase.database().ref(userPath);
 
-        	var eventPath ="/event/" + eventName +"/members/"+ userid;
-        	var eventref = firebase.database().ref(eventPath);
-
-        	eventref.set({ joined : true })	 
-    	} else {
-   
-    // No user is signed in.
-    }
-    });
-*/
 	    var user = firebase.auth().currentUser;
 	    console.log(user);
 
