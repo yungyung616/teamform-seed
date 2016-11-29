@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = "teamform-member-app" ng-controller="MemberCtrl">
+<html ng-app = "teamform-member-app" id="member_controller" ng-controller="MemberCtrl">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -57,9 +57,9 @@
 			</div>
 			<div class="navbar-collapse collapse" >
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">HOME</a></li>
-					<li><a href="#event">EVENTS</a></li>
-					<li><a href="#about">ABOUT US</a></li>
+					<li class="active"><a href="index.html">HOME</a></li>
+					<li><a href="index.html#event">EVENTS</a></li>
+					<li><a href="index.html#about">ABOUT US</a></li>
 					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
 					<li><a href="member.html">MEMBER</a></li>
 
@@ -113,7 +113,7 @@
 					<div class="widget">
 						<h4>Joined Event</h4>
 						<ul class="list-unstyled list-spaces">
-							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
+							<li><a href="">{{param.EventName}}</a><br><span class="small text-muted">{{TeamName}}</span></li>
 							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
 						</ul>
 					</div>
